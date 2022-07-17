@@ -7,6 +7,24 @@ namespace WebApplication1.Controllers
     [Route("[controller]")]
     public class WeatherForecastController : ControllerBase
     {
+        protected string GetIPAddress()
+        {
+            return HttpContext.Connection.RemoteIpAddress.ToString();
+
+            // HttpContext context = HttpContext.Features.Get<IHttpConnectionFeature>().HttpContext; 
+            // string ipAddress = context.Request.ServerVariables["HTTP_X_FORWARDED_FOR"];
+
+            //  if (!string.IsNullOrEmpty(ipAddress))
+            //  {
+            //     string[] addresses = ipAddress.Split(',');
+            //     if (addresses.Length != 0)
+            //     {
+            //         return addresses[0];
+            //      }
+            //  }
+
+            //  return context.Request.ServerVariables["REMOTE_ADDR"];
+        }
         private static readonly string[] Summaries = new[]
         {
         "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
@@ -29,7 +47,7 @@ namespace WebApplication1.Controllers
             {
                 Date = DateTime.Now.AddDays(index),
                 TemperatureC = Random.Shared.Next(-20, 55),
-                IpAddress = HttpContext.Connection.RemoteIpAddress.ToString(),
+                IpAddress = GetIPAddress(),
                 Summary = Summaries[Random.Shared.Next(Summaries.Length)]
             })
             .ToArray();
