@@ -29,7 +29,7 @@ namespace WebApplication1.Controllers
             {
                 Date = DateTime.Now.AddDays(index),
                 TemperatureC = Random.Shared.Next(-20, 55),
-                IpAddress = HttpContext.Connection.RemoteIpAddress.ToString(),
+                IpAddress = ControllerContext.HttpContext.Connection.RemoteIpAddress.ToString(),
                 Summary = Summaries[Random.Shared.Next(Summaries.Length)]
             })
             .ToArray();
